@@ -40,6 +40,7 @@ const subStickers = {
 };
 
 const MASCOT_PATH = `${BASE_PATH}assets/mascot.png`;
+const LOGO_PATH = `${BASE_PATH}assets/icons/exlogo.png`;
 
 // ========== 유틸리티 함수 ==========
 const getDateString = (date: Date): string => {
@@ -257,11 +258,11 @@ const MindPocketApp = () => {
         <div className="max-w-2xl mx-auto px-5 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 bg-sky-400 rounded-2xl flex items-center justify-center shadow-md">
+              <div className="w-full h-10 rounded-2xl flex items-center justify-center ">
                 <img 
-                  src={MASCOT_PATH}
+                  src={LOGO_PATH}
                   alt="마스코트" 
-                  className="w-9 h-9 object-contain"
+                  className="w-50 h-10 object-contain"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
@@ -271,10 +272,10 @@ const MindPocketApp = () => {
                 <Heart className="text-white hidden" size={24} fill="white" />
               </div>
               <div>
-                <h1 className="text-lg font-bold text-gray-800">마인드포켓</h1>
-                <p className="text-xs text-gray-600 font-medium">
+                {/* <h1 className="text-lg font-bold text-gray-800">마인드포켓</h1> */}
+                {/* <p className="text-xs text-gray-600 font-medium">
                   {currentMonth.getFullYear()}년 {monthNames[currentMonth.getMonth()]}
-                </p>
+                </p> */}
               </div>
             </div>
             <button 
@@ -346,7 +347,7 @@ const MindPocketApp = () => {
             <img 
               src={emotionInfo.imgPath}
               alt={emotionInfo.name}
-              className="w-full h-full object-contain scale-150"
+              className="w-full h-full object-contain scale-120"
               style={{ marginTop: '8px' }}
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
@@ -366,7 +367,7 @@ const MindPocketApp = () => {
               <img 
                 src={subStickerInfo.imgPath}
                 alt={subStickerInfo.name}
-                className="absolute inset-0 w-full h-full object-contain pointer-events-none z-10 scale-150"
+                className="absolute inset-0 w-full h-full object-contain pointer-events-none z-10 scale-120"
                 style={{ marginTop: '8px', mixBlendMode: 'normal' }}
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
@@ -376,7 +377,7 @@ const MindPocketApp = () => {
             )}
           </>
         ) : (
-          <div className="w-1.5 h-1.5 rounded-full bg-gray-200" style={{ marginTop: '8px' }} />
+          <div className="w-12 h-11 rounded-full bg-gray-200" style={{ marginTop: '8px' }} />
         )}
       </button>
     );
@@ -496,7 +497,7 @@ const MindPocketApp = () => {
                   <button
                     key={key}
                     onClick={() => handleEmotionSelect(key)}
-                    className="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-sky-50 transition-all active:scale-95"
+                    className="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-sky-50 transition-all active:scale-95 whitespace-nowrap"
                   >
                     <img 
                       src={data.imgPath}
