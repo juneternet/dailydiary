@@ -1,42 +1,39 @@
 import React, { useState } from 'react';
 import { X, ChevronLeft, ChevronRight, Save, Home, BarChart3, Calendar, Heart } from 'lucide-react';
 
+// 이미지 import
+import mascotImg from '/assets/mascot.png';
+import emotion1_1 from '/assets/emotions/1-1.png';
+import emotion5_2 from '/assets/emotions/5-2.png';
+import sticker6_1 from '/assets/stickers/6-1.png';
+import sticker6_2 from '/assets/stickers/6-2.png';
+import sticker6_3 from '/assets/stickers/6-3.png';
+import sticker6_4 from '/assets/stickers/6-4.png';
+
 // 감정 데이터
 const emotionEmojis = {
-  happy: { emoji: '😊', color: 'bg-blue-100', name: '행복', imgPath: '/assets/emotions/5-2.png' },
-  excited: { emoji: '🤩', color: 'bg-blue-200', name: '신남', imgPath: '/assets/emotions/1-1.png' },
-  love: { emoji: '🥰', color: 'bg-blue-300', name: '사랑', imgPath: '/assets/emotions/1-1.png' },
-  calm: { emoji: '😌', color: 'bg-sky-100', name: '평온', imgPath: '/assets/emotions/1-1.png' },
-  sad: { emoji: '😢', color: 'bg-sky-200', name: '슬픔', imgPath: '/assets/emotions/1-1.png' }
+  happy: { emoji: '😊', color: 'bg-blue-100', name: '행복', imgPath: emotion5_2 },
+  excited: { emoji: '🤩', color: 'bg-blue-200', name: '신남', imgPath: emotion1_1 },
+  love: { emoji: '🥰', color: 'bg-blue-300', name: '사랑', imgPath: emotion1_1 },
+  calm: { emoji: '😌', color: 'bg-sky-100', name: '평온', imgPath: emotion1_1 },
+  sad: { emoji: '😢', color: 'bg-sky-200', name: '슬픔', imgPath: emotion1_1 }
 };
 
 // 서브 스티커 데이터
 const subStickers = {
-  firework: { emoji: '🎉', name: '축하', imgPath: '/assets/stickers/6-2.png' },
-  beer: { emoji: '🍺', name: '맥주', imgPath: '/assets/stickers/6-1.png' },
-  hat: { emoji: '🎩', name: '모자', imgPath: '/assets/stickers/6-1.png' },
-  tear: { emoji: '💧', name: '눈물', imgPath: '/assets/stickers/6-4.png' },
-  star: { emoji: '⭐', name: '별', imgPath: '/assets/stickers/6-4.png' },
-  heart: { emoji: '💕', name: '하트', imgPath: '/assets/stickers/6-1.png' },
-  coffee: { emoji: '☕', name: '커피', imgPath: '/assets/stickers/6-3.png' },
-  book: { emoji: '📚', name: '책', imgPath: '/assets/stickers/6-1.png' }
-};
-
-// 아이콘 경로 설정
-const iconPaths = {
-  mascot: '/assets/mascot.png',
-  home: '/assets/icons/home.png',
-  stats: '/assets/icons/stats.png',
-  calendar: '/assets/icons/calendar.png',
-  heart: '/assets/icons/heart.png',
-  share: '/assets/icons/share.png',
-  edit: '/assets/icons/edit.png',
-  delete: '/assets/icons/delete.png'
+  firework: { emoji: '🎉', name: '축하', imgPath: sticker6_2 },
+  beer: { emoji: '🍺', name: '맥주', imgPath: sticker6_1 },
+  hat: { emoji: '🎩', name: '모자', imgPath: sticker6_1 },
+  tear: { emoji: '💧', name: '눈물', imgPath: sticker6_4 },
+  star: { emoji: '⭐', name: '별', imgPath: sticker6_4 },
+  heart: { emoji: '💕', name: '하트', imgPath: sticker6_1 },
+  coffee: { emoji: '☕', name: '커피', imgPath: sticker6_3 },
+  book: { emoji: '📚', name: '책', imgPath: sticker6_1 }
 };
 
 const MindPocketApp = () => {
   const [currentView, setCurrentView] = useState('home');
-  const [currentMonth, setCurrentMonth] = useState(new Date(2023, 1)); // 2023년 2월
+  const [currentMonth, setCurrentMonth] = useState(new Date(2023, 1));
   const [showJournalModal, setShowJournalModal] = useState(false);
   const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
   const [selectedSubSticker, setSelectedSubSticker] = useState<string | null>(null);
@@ -46,7 +43,6 @@ const MindPocketApp = () => {
 
   const todayQuestion = "오늘 나를 웃게 만든 작은 일이 있었나요?";
 
-  // 캘린더 데이터 (2023년 2월) - 서브 스티커 포함
   const emotionData: Record<number, { emotion: string; subSticker?: string }> = {
     1: { emotion: 'happy' },
     2: { emotion: 'happy', subSticker: 'firework' },
@@ -82,7 +78,7 @@ const MindPocketApp = () => {
     {
       date: '2월 8일 수요일',
       emotion: 'sad',
-      content: '당신.. 혹시 파프리 아몸을 구볍 몯하는거 아닙니까?π'
+      content: '오늘은 즐거운 일이 많은 하루였습니다'
     }
   ];
 
@@ -154,12 +150,11 @@ const MindPocketApp = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <img 
-                src={iconPaths.mascot}
+                src={mascotImg}
                 alt="마스코트"
                 className="w-10 h-10 object-contain"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
-                  e.currentTarget.parentElement!.innerHTML = '<div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center"><span class="text-xl">🌱</span></div>';
                 }}
               />
               <button 
@@ -186,7 +181,6 @@ const MindPocketApp = () => {
       <main className="max-w-2xl mx-auto px-5 py-4 space-y-4">
         {/* 캘린더 */}
         <div className="bg-white rounded-2xl p-4">
-          {/* 요일 헤더 */}
           <div className="grid grid-cols-7 gap-1 mb-2">
             {weekDays.map((day, idx) => (
               <div key={idx} className="text-center text-xs font-medium text-gray-500 py-1">
@@ -195,7 +189,6 @@ const MindPocketApp = () => {
             ))}
           </div>
 
-          {/* 날짜 그리드 */}
           <div className="grid grid-cols-7 gap-2">
             {days.map((day, idx) => {
               if (!day) return <div key={idx} className="aspect-square"></div>;
@@ -212,40 +205,23 @@ const MindPocketApp = () => {
                     isToday ? 'ring-2 ring-blue-400 ring-offset-2' : ''
                   }`}
                 >
-                  {/* 메인 감정 마스코트 */}
                   {emotionInfo && (
                     <img 
                       src={emotionInfo.imgPath}
                       alt={emotionInfo.name}
                       className="w-full h-full object-contain"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        const emoji = document.createElement('span');
-                        emoji.className = 'text-4xl';
-                        emoji.textContent = emotionInfo.emoji;
-                        e.currentTarget.parentElement?.appendChild(emoji);
-                      }}
                     />
                   )}
                   
-                  {/* 서브 스티커 - 감정 위에 겹쳐서 표시 (스티커처럼) */}
                   {subStickerInfo && (
                     <img 
                       src={subStickerInfo.imgPath}
                       alt={subStickerInfo.name}
                       className="absolute inset-0 w-full h-full object-contain z-10 pointer-events-none"
                       style={{ mixBlendMode: 'normal' }}
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        const emoji = document.createElement('span');
-                        emoji.className = 'absolute text-3xl z-10';
-                        emoji.textContent = subStickerInfo.emoji;
-                        e.currentTarget.parentElement?.appendChild(emoji);
-                      }}
                     />
                   )}
                   
-                  {/* 날짜 숫자 */}
                   <span className="absolute top-0.5 right-1.5 text-[9px] font-medium text-gray-400 bg-white/80 px-1 rounded z-20">{day}</span>
                 </button>
               );
@@ -277,13 +253,6 @@ const MindPocketApp = () => {
                 src={emotionEmojis.sad.imgPath}
                 alt={emotionEmojis.sad.name}
                 className="w-full h-full object-contain"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const emoji = document.createElement('span');
-                  emoji.className = 'text-4xl';
-                  emoji.textContent = emotionEmojis.sad.emoji;
-                  e.currentTarget.parentElement?.appendChild(emoji);
-                }}
               />
             </div>
             <div className="flex-1">
@@ -306,13 +275,6 @@ const MindPocketApp = () => {
                 src={data.imgPath}
                 alt={data.name}
                 className="w-full h-full object-contain"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const emoji = document.createElement('span');
-                  emoji.className = 'text-2xl';
-                  emoji.textContent = data.emoji;
-                  e.currentTarget.parentElement?.appendChild(emoji);
-                }}
               />
             </button>
           ))}
@@ -323,12 +285,12 @@ const MindPocketApp = () => {
             <span className="text-2xl">😊</span>
           </button>
           <button className="w-12 h-12 flex items-center justify-center hover:scale-110 transition-transform">
-            <span className="text-2xl">🏠</span>
+            <span className="text-2xl">🍀</span>
           </button>
         </div>
       </main>
 
-      {/* 마스코트 말풍선 모달 - 하단에 위치 */}
+      {/* 마스코트 말풍선 모달 */}
       {showMascotModal && (
         <div 
           className="fixed inset-0 z-40"
@@ -339,14 +301,12 @@ const MindPocketApp = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="bg-white rounded-3xl shadow-2xl p-6 max-w-xs mx-4 relative">
-              {/* 아래쪽 화살표 */}
               <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white rotate-45"></div>
               
               <p className="text-center text-sm text-gray-600 mb-4 font-medium">
                 오늘 하루는 어땠나요? 🌟
               </p>
               
-              {/* 5개 감정 선택 */}
               <div className="flex items-center justify-center gap-3">
                 {Object.entries(emotionEmojis).map(([key, data]) => (
                   <button
@@ -358,13 +318,6 @@ const MindPocketApp = () => {
                       src={data.imgPath}
                       alt={data.name}
                       className="w-full h-full object-contain"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        const emoji = document.createElement('span');
-                        emoji.className = 'text-3xl';
-                        emoji.textContent = data.emoji;
-                        e.currentTarget.parentElement?.appendChild(emoji);
-                      }}
                     />
                   </button>
                 ))}
@@ -378,7 +331,6 @@ const MindPocketApp = () => {
       {showJournalModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
           <div className="bg-white rounded-t-3xl sm:rounded-3xl w-full sm:max-w-2xl max-h-[85vh] overflow-hidden flex flex-col animate-slide-up">
-            {/* 헤더 */}
             <div className="p-6 border-b border-gray-100 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 {selectedEmotion && (
@@ -387,13 +339,6 @@ const MindPocketApp = () => {
                       src={emotionEmojis[selectedEmotion].imgPath}
                       alt={emotionEmojis[selectedEmotion].name}
                       className="w-full h-full object-contain"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        const emoji = document.createElement('span');
-                        emoji.className = 'text-3xl';
-                        emoji.textContent = emotionEmojis[selectedEmotion].emoji;
-                        e.currentTarget.parentElement?.appendChild(emoji);
-                      }}
                     />
                     {selectedSubSticker && (
                       <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full shadow-md flex items-center justify-center">
@@ -401,13 +346,6 @@ const MindPocketApp = () => {
                           src={subStickers[selectedSubSticker].imgPath}
                           alt={subStickers[selectedSubSticker].name}
                           className="w-5 h-5 object-contain"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                            const emoji = document.createElement('span');
-                            emoji.className = 'text-sm';
-                            emoji.textContent = subStickers[selectedSubSticker].emoji;
-                            e.currentTarget.parentElement?.appendChild(emoji);
-                          }}
                         />
                       </div>
                     )}
@@ -422,7 +360,6 @@ const MindPocketApp = () => {
               </button>
             </div>
 
-            {/* 컨텐츠 */}
             <div className="flex-1 overflow-auto p-6">
               {journalStep === 'sticker' ? (
                 <div className="space-y-4">
@@ -430,7 +367,6 @@ const MindPocketApp = () => {
                     오늘 하루를 더 표현할 스티커를 선택하거나 건너뛰세요
                   </p>
                   
-                  {/* 서브 스티커 선택 그리드 */}
                   <div className="grid grid-cols-4 gap-3">
                     {Object.entries(subStickers).map(([key, data]) => (
                       <button
@@ -446,20 +382,12 @@ const MindPocketApp = () => {
                           src={data.imgPath}
                           alt={data.name}
                           className="w-12 h-12 object-contain"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                            const emoji = document.createElement('span');
-                            emoji.className = 'text-3xl';
-                            emoji.textContent = data.emoji;
-                            e.currentTarget.parentElement?.appendChild(emoji);
-                          }}
                         />
                         <span className="text-xs font-medium text-gray-700">{data.name}</span>
                       </button>
                     ))}
                   </div>
                   
-                  {/* 건너뛰기 버튼 */}
                   <button
                     onClick={() => handleSubStickerSelect(null)}
                     className="w-full py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-medium hover:bg-gray-50"
@@ -490,7 +418,6 @@ const MindPocketApp = () => {
               )}
             </div>
 
-            {/* 하단 버튼 */}
             {journalStep === 'writing' && (
               <div className="p-6 border-t border-gray-100">
                 <button
@@ -535,20 +462,15 @@ const MindPocketApp = () => {
               <span className="text-xs font-medium">통계</span>
             </button>
 
-            {/* 마스코트 버튼 - 중앙 상단 배치 */}
             <div className="absolute left-1/2 -translate-x-1/2 -top-8">
               <button 
                 onClick={handleMascotClick}
                 className="w-20 h-20 flex items-center justify-center hover:scale-110 transition-transform active:scale-95"
               >
                 <img 
-                  src={iconPaths.mascot}
+                  src={mascotImg}
                   alt="마스코트"
                   className="w-full h-full object-contain drop-shadow-lg"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.parentElement!.innerHTML = '<div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center shadow-lg"><span class="text-4xl">🌱</span></div>';
-                  }}
                 />
               </button>
             </div>
