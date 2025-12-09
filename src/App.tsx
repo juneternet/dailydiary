@@ -318,68 +318,70 @@ const MindPocketApp = () => {
           </div>
 
           <div className="grid grid-cols-7 gap-2">
-            {days.map((day, idx) => {
-              if (!day) return <div key={idx} className="aspect-square"></div>;
-              
-              const entry = getEntryForDate(day);
-              const emotionInfo = entry ? emotionEmojis[entry.emotion] : null;
-              const subStickerInfo = entry?.subStickers?.[0] ? subStickers[entry.subStickers[0]] : null;
-              const isTodayDate = isToday(day);
-              const isSelected = getDateString(day) === getDateString(selectedDate);
+  {days.map((day, idx) => {
+    if (!day) return <div key={idx} className="aspect-square"></div>;
+    
+    const entry = getEntryForDate(day);
+    const emotionInfo = entry ? emotionEmojis[entry.emotion] : null;
+    const subStickerInfo = entry?.subStickers?.[0] ? subStickers[entry.subStickers[0]] : null;
+    const isTodayDate = isToday(day);
+    const isSelected = getDateString(day) === getDateString(selectedDate);
 
-              return (
-                <button
-                  key={idx}
-                  onClick={() => handleDateClick(day)}
-                  className={`aspect-square rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center relative bg-white hover:bg-gray-50
-                    ${isTodayDate ? 'border-2 border-blue-400' : isSelected ? 'border-2 border-blue-300' : 'border-2 border-transparent'}
-                  `}
-                >
-                  <div className={`absolute top-0.5 left-1/2 -translate-x-1/2 text-[10px] font-bold z-20 ${
-                    isTodayDate ? 'text-blue-500' : isSelected ? 'text-blue-400' : entry ? 'text-gray-700' : 'text-gray-400'
-                  }`}>
-                    {day.getDate()}
-                  </div>
-                  
-                  {entry && emotionInfo ? (
-                    <>
-                      <img 
-                        src={emotionInfo.imgPath}
-                        alt={emotionInfo.name}
-                        className="absolute inset-0 w-full h-full object-contain p-0.5 pt-4"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                          const parent = target.parentElement;
-                          if (parent) {
-                            const emoji = document.createElement('div');
-                            emoji.className = 'absolute inset-0 flex items-center justify-center text-4xl pt-3';
-                            emoji.textContent = emotionInfo.emoji;
-                            parent.appendChild(emoji);
-                          }
-                        }}
-                      />
-                      
-                      {subStickerInfo && (
-                        <img 
-                          src={subStickerInfo.imgPath}
-                          alt={subStickerInfo.name}
-                          className="absolute inset-0 w-full h-full object-contain pointer-events-none z-10 p-0.5 pt-4"
-                          style={{ mixBlendMode: 'normal' }}
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.style.display = 'none';
-                          }}
-                        />
-                      )}
-                    </>
-                  ) : (
-                    <div className="w-1.5 h-1.5 rounded-full bg-gray-200 mt-3" />
-                  )}
-                </button>
-              );
-            })}
-          </div>
+    return (
+      <button
+        key={idx}
+        onClick={() => handleDateClick(day)}
+        className={`aspect-square rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center relative bg-white hover:bg-gray-50
+          ${isTodayDate ? 'border-2 border-blue-400' : isSelected ? 'border-2 border-blue-300' : 'border-2 border-transparent'}
+        `}
+      >
+        <div className={`absolute top-0.5 left-1/2 -translate-x-1/2 text-[9px] font-bold z-20 ${
+          isTodayDate ? 'text-blue-500' : isSelected ? 'text-blue-400' : entry ? 'text-gray-600' : 'text-gray-400'
+        }`}>
+          {day.getDate()}
+        </div>
+        
+        {entry && emotionInfo ? (
+          <>
+            <img 
+              src={emotionInfo.imgPath}
+              alt={emotionInfo.name}
+              className="w-full h-full object-contain scale-150"
+              style={{ marginTop: '8px' }}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const parent = target.parentElement;
+                if (parent) {
+                  const emoji = document.createElement('div');
+                  emoji.className = 'text-5xl';
+                  emoji.style.marginTop = '8px';
+                  emoji.textContent = emotionInfo.emoji;
+                  parent.appendChild(emoji);
+                }
+              }}
+            />
+            
+            {subStickerInfo && (
+              <img 
+                src={subStickerInfo.imgPath}
+                alt={subStickerInfo.name}
+                className="absolute inset-0 w-full h-full object-contain pointer-events-none z-10 scale-150"
+                style={{ marginTop: '8px', mixBlendMode: 'normal' }}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
+              />
+            )}
+          </>
+        ) : (
+          <div className="w-1.5 h-1.5 rounded-full bg-gray-200" style={{ marginTop: '8px' }} />
+        )}
+      </button>
+    );
+  })}
+</div>
         </div>
 
         {/* 선택된 날짜의 일기 표시 */}
